@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  chromadb:
+    image: chromadb/chroma
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/db:/data
+
+  retrieval-server:
+    build:
+      context: ./retrieval_server
+    container_name: retrieval-server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - chromadb
